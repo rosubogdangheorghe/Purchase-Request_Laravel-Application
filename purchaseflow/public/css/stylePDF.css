@@ -1,0 +1,47 @@
+
+#pr-title{
+
+    color:black;
+    margin: auto;
+}
+#company {
+    position: relative;
+    float: right;
+
+}
+
+ table, tr, th, td {
+    text-align: center;
+    font-size: 10px;
+    word-wrap: wrap auto;
+    border: 2px solid black;
+   
+}
+#number {
+    width: 100px;
+}
+.date {
+    width: 200px;
+}
+#supplier {
+
+    width: 400px;
+}
+#currency {
+    width: 100px;
+}
+.line {
+    border: 2px solid black;
+}
+#line-number, #unit-measure {
+    width: 50px;
+}
+#description {
+    width: 350px;
+}
+#accounting {
+    width:100px;
+
+}
+
+
