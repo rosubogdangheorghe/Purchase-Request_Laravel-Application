@@ -77,7 +77,6 @@ class Purchaseheader extends Model
         }
         public static function getStatus($id) {
 
-           //$status = DB::table('purchaseheaders','status')->where('id',$id)->get();
             $status = DB::select("SELECT purchaseheaders.status from purchaseheaders WHERE purchaseheaders.id = $id");
             
             return $status;

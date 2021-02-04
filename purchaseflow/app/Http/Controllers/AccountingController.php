@@ -113,10 +113,10 @@ class AccountingController extends Controller
         return $this->show( $purchasebody->purchaseheaders_id);
     }
 
-
-    public function countNull($var) {
+    
+    private function countNull($var) {
         $count = 0;
-        for($i=0;$i<sizeof($var);$i++) {
+        for($i=0;$i<count($var);$i++) {
             if($var[$i]->budgetLine == "") {
                 $count++;
               
@@ -128,20 +128,19 @@ class AccountingController extends Controller
 
     public function promote($id){
 
-            $status = Purchaseheader::STATUS[2];
-            $purchaseHeaderId =  Purchaseheader::findOrFail($id)->id;
-         
             $prBody = new Purchasebody();
-
-   
-            $accountingCheck = $prBody->getAccountingCheck($purchaseHeaderId);
+            $accountingCheck = $prBody->getAccountingCheck($id);
+            $purchaseHeader = new Purchaseheader();
+             $status = $purchaseHeader->getStatus($id); 
 
             $count =  $this->countNull($accountingCheck);
 
             if($count > 0) {
                 return redirect()->route('accounting.show',$id)->with('message','Please proceed with accounting check before promotion');
                
-            } else {
+            } elseif($status[0]->status == Purchaseheader::STATUS[1]) {
+                
+                $status = Purchaseheader::STATUS[2];
                 Purchaseheader::updateStatus($id,$status);  
                 $contact = new ContactController();
                 $email = 'rosu.bogdan@gmail.com';
@@ -153,6 +152,8 @@ class AccountingController extends Controller
 
                 return redirect()->route('accounting.index')->with('success','Purchase request promoted successfuly');
               
+            } else {
+                return redirect()->route('accounting.index')->with('message','Purchase request already checked');
             }
 
            

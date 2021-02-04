@@ -52,6 +52,7 @@
                 @method('PUT')
                 <button type="submit" class = "btn btn-danger">Reject</button>
                 </form>
+            </td>    
            
         </tr>
         </table>

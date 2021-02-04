@@ -84,27 +84,42 @@ class ManagementController extends Controller
         //
     }
 
-    public function promote($id){
-
-        $status = Purchaseheader::STATUS[3];
-        //$purchaseHeaderId =  Purchaseheader::findOrFail($id)->id;
-     
-        Purchaseheader::updateStatus($id,$status);  
-
-        return redirect()->route('management.index')->with('success','Purchase request approved successfuly');
+    public function promote($id)
+    {
+        $purchaseHeader = new Purchaseheader();
+        $status = $purchaseHeader->getStatus($id); 
+      
+        if($status[0]->status == Purchaseheader::STATUS[2]) {
+            $status = Purchaseheader::STATUS[3];
+            Purchaseheader::updateStatus($id, $status);
+            return redirect()->route('management.index')->with('success', 'Purchase request approved successfuly');
+        }   
+        elseif($status[0]->status == Purchaseheader::STATUS[4]) {
+            return redirect()->route('management.index')->with('message', 'Cannot approve a Purchase request already rejected'); }
+        else {
           
+            return redirect()->route('management.index')->with('message','Purchase request should be checked by accounting before approval');
+            var_dump(Purchaseheader::STATUS[3]);
+           
         }
+       
+    }
 
-        public function reject($id){
-
+    public function reject($id)
+    {
+        $purchaseHeader = new Purchaseheader();
+        $status = $purchaseHeader->getStatus($id); 
+        if($status[0]->status == Purchaseheader::STATUS[2]) {
             $status = Purchaseheader::STATUS[4];
-            //$purchaseHeaderId =  Purchaseheader::findOrFail($id)->id;
-         
-            Purchaseheader::updateStatus($id,$status);  
-    
-            return redirect()->route('management.index')->with('success','Purchase request reject successfuly');
-              
-            }
+            Purchaseheader::updateStatus($id, $status);
+            return redirect()->route('management.index')->with('success', 'Purchase request reject successfuly');
+        } elseif($status[0]->status == Purchaseheader::STATUS[3]) {
+            return redirect()->route('management.index')->with('message', 'Cannot Reject a Purchase request already approved');
+        } else {
+            return redirect()->route('management.index')->with('message','Purchase request should be checked by accounting before rejection');
+        }
+       
+    }
 
     /**
      * Remove the specified resource from storage.

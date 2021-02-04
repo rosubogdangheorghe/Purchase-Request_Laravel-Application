@@ -139,25 +139,22 @@ class PurchaseheaderController extends Controller
         return redirect()->route('purchaseheader.index')->with('success','Purchase request updated successfuly');
 
     }
-
+    
     public function promote($id){
-
-            $status = Purchaseheader::STATUS[1];
+            $purchaseHeader = new Purchaseheader();
+            $status = $purchaseHeader->getStatus($id); 
             $purchasebody = new Purchasebody();
             $prlines = $purchasebody->getPrLines($id);
             $count = sizeof($prlines);
-            if($count > 0) {
+            if($count > 0 && $status[0]->status == Purchaseheader::STATUS[0]) {
+                $status = Purchaseheader::STATUS[1];
                 Purchaseheader::updateStatus($id,$status);
-               
-
-
                 return redirect()->route('purchaseheader.index')->with('success','Purchase request promoted successfuly');
             }
             else {
                 return redirect()->route('purchasebody.createPrLine',$id)->with('message','Please create PR lines before promotion');
+                
             }
-
-           
 
     }
 
