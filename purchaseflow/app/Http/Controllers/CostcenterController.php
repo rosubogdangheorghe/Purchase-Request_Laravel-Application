@@ -42,7 +42,7 @@ class CostcenterController extends Controller
     {
         $request ->validate([
             'code'=> 'required|regex:/[0-9]{2}-[0-9]{2}-[0-9]{2}/',
-            'description'=> 'required|regex:/[a-zA-Z0-9]/'
+            'description'=> 'required|regex:/[a-zA-Z0-9]*/'
         ]);
         $costcenter = new Costcenter();
         $costcenter->code=$request->get('code');

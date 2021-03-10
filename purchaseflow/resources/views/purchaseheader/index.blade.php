@@ -5,14 +5,14 @@
 
 <div>
 
-    <div  class = 'row row-cols-2'>
+    <div  class = "container">
     <div class="title">
             <h2>Purchase Requisition Headers</h2>
         </div>
   
-        <div class="addCostcenter">
+        <div class="header">
             <a href="{{route('purchaseheader.create')}}" class="btn btn-primary" role = "button">Add Purchase Requisition</a>
-            <a href="{{route('welcome')}}" class="btn btn-primary" role = "button">main page</a>
+            <a href="{{route('welcome')}}" class="btn btn-primary" role = "button">Main page</a>
         </div>
     </div>
 
@@ -43,6 +43,7 @@
         </tr>
     
     @foreach($purchases as $purchase)
+    <div class= "container">
         <tr>
             <td>{{$purchase->id}}</td>
             <td>{{$purchase->issueDate}}</td>
@@ -53,17 +54,18 @@
             <td>{{$purchase->status}}</td>
    
             <td>
+               
                 <form action = "{{ route('purchaseheader.promote',$purchase->id) }}" method="POST">
-                <input type="hidden" name="_method" value="PUT">
-                    <a href = "{{ route('purchaseheader.edit',$purchase->id) }}" class = "btn btn-warning" role = "button">Edit PR Header</a>
-                    <a href="{{ route('purchaseheader.show',$purchase->id) }}" class="btn btn-success" role = "button">Show</a>
-                    <a href="{{ route('purchasebody.createPrLine',$purchase->id) }}" class="btn btn-primary" role = "button">Input PR lines</a>
+                    <input type="hidden" name="_method" value="PUT">
+                        <a href= "{{ route('purchaseheader.edit',$purchase->id) }}" class = "btn btn-warning btn-sm" role = "button" id="edit-pr-header">Edit PR Header</a>
+                        <a href="{{ route('purchaseheader.show',$purchase->id) }}" class="btn btn-success btn-sm" role = "button" id="show-pr">Show</a>
+                        <a href="{{ route('purchasebody.createPrLine',$purchase->id) }}" class="btn btn-primary btn-sm" role = "button" id="input-pr-lines">Input PR lines</a>
 
-                @csrf
-                @method('PUT')
-                <button type="submit" class = "btn btn-danger">Promote</button>
+                    @csrf
+                    @method('PUT')
+                    <button type="submit" class = "btn btn-danger btn-sm" id="promote-pr">Promote</button>
                 </form>
-
+                </div>
             </td>
         </tr>
     @endforeach

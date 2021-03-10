@@ -3,15 +3,14 @@
 @section('content')
 
 
-<div>
 
-    <div  class = 'row row-cols-2'> 
+    <div  class = "container"> 
     <div class="title">
             <h2>Purchase Requisition</h2>
         </div>
   
-        <div class="addCostcenter">
-            <a href="{{route('purchaseheader.index')}}" class="btn btn-primary" role = "button">Back to Purchase requisitions list</a>
+        <div class="header">
+            <a href="{{route('purchaseheader.index')}}" class="btn btn-primary" role = "button" id="back-to-pr-list">Back to Purchase requisitions list</a>
             <a class="btn btn-primary" href="{{route('pdf.createPDF',$purchaseHeaderById[0]->id) }}">Export to PDF</a>
         </div>
     </div>
@@ -37,7 +36,7 @@
             <td>{{$purchaseHeaderById[0]->currency}}</td>
             <td>{{$purchaseHeaderById[0]->user}}</td>
             <td>{{$purchaseHeaderById[0]->status}}</td>
-           <td> <a href="{{ route('purchaseheader.edit',$purchaseHeaderById[0]->id) }}" class="btn btn-warning" role = "button">Edit PR Header</a></td>
+           <td> <a href="{{ route('purchaseheader.edit',$purchaseHeaderById[0]->id) }}" class="btn btn-warning" role = "button" id="edit-pr-header">Edit PR Header</a></td>
            
         </tr>
         </table>
@@ -65,14 +64,14 @@
             <td>{{ $prLine->prvalue }}</td>
             <td>{{ $prLine->budgeted }}</td>
             <td>{{ $prLine->budgetLine }}</td>
-            <td><a href="{{  route('purchasebody.editPrLine',[$prLine->id,$purchaseHeaderById[0]->id]) }}" class="btn btn-primary" role = "button">Edit</a></td>
+            <td><a href="{{  route('purchasebody.editPrLine',[$prLine->id,$purchaseHeaderById[0]->id]) }}" class="btn btn-primary" role = "button" id="edit-pr-body">Edit</a></td>
             
             <td>
                 <form action = "{{ route('purchasebody.destroy',$prLine->id) }}" method="POST">
-                <!-- <a href="{{ route('purchasebody.destroy',$prLine->id) }}" class="btn btn-primary" role = "button">Delete</a></td> -->
+        
                 @csrf
                     @method('DELETE')
-                    <button type="submit" class = "btn btn-danger">Delete</button>
+                    <button type="submit" class = "btn" id="delete-pr">Delete</button>
 
                 </form>
             </td>  
@@ -83,18 +82,6 @@
 
         </table>
 
-    
     </div>
-
-
-
-</div>
-
-
-
-
-
-
-
 
 @endsection

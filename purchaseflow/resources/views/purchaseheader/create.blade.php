@@ -2,11 +2,11 @@
 
 @section('content')
 
-<div>
-    <div>
+<div class = "container">
+    <div class="title">
         <h2>Purchase requisition form</h2>
     </div>
-    <div>
+    <div class="header">
         <a href="{{ route('purchaseheader.index') }}" class="btn btn-primary" role="button">Back</a>
     </div>
 
@@ -38,7 +38,7 @@
 
     @csrf
 
-    <div class="form-inline">
+    <div class="form-group">
         <label for="issueDate" class="mb-2 mr-sm-2">Issue Date: </label>
         <input type="date" name="issueDate" class="form-control mb-2 mr-sm-2 w-25" placeholder="issueDate" id="issueDate" required>
         <label for="deliveryDate" class="mb-2 mr-sm-2">Delivery Date: </label>
